@@ -58,6 +58,31 @@
         margin-bottom: 18px;
       }
 
+      .diagram-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 16px;
+      }
+
+      .diagram-card {
+        min-height: 178px;
+        padding: 20px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: var(--panel);
+      }
+
+      .diagram-card h2 {
+        margin: 0 0 8px;
+        font-size: 19px;
+        line-height: 1.25;
+      }
+
+      .diagram-card p {
+        margin-bottom: 16px;
+        font-size: 14px;
+      }
+
       a {
         color: var(--blue);
       }
@@ -76,22 +101,6 @@
         font-weight: 650;
       }
 
-      .frame {
-        width: 100%;
-        height: min(78vh, 980px);
-        min-height: 620px;
-        overflow: hidden;
-        border: 1px solid var(--line);
-        border-radius: 10px;
-        background: #0f1112;
-      }
-
-      iframe {
-        width: 100%;
-        height: 100%;
-        border: 0;
-      }
-
       @media (max-width: 760px) {
         header,
         main {
@@ -103,24 +112,26 @@
           font-size: 24px;
         }
 
-        .frame {
-          min-height: 560px;
-        }
       }
     </style>
   </head>
   <body>
     <header>
       <h1>GetsMine Diagrams</h1>
-      <p>Рабочие HTML-схемы по агентам, видео и операционным процессам. Первая схема показывает, как связаны Света, Claude Chat, GM Video Production Agent, HeyGen, Runway, агент платного трафика и источники контекста.</p>
+      <p>Рабочие HTML-схемы по агентам, видео и операционным процессам.</p>
     </header>
     <main>
-      <div class="toolbar">
-        <a class="button" href="./diagrams/gm-video-agent-network.html">Открыть схему отдельно</a>
-        <span>GM Video Production Agent Network</span>
-      </div>
-      <div class="frame">
-        <iframe title="GM Video Production Agent Network" src="./diagrams/gm-video-agent-network.html"></iframe>
+      <div class="diagram-list">
+        <section class="diagram-card">
+          <h2>GM Video Production Agent Network</h2>
+          <p>Как связаны Света, Claude Chat, GM Video Production Agent, HeyGen, Runway, агент платного трафика и источники контекста.</p>
+          <a class="button" href="./diagrams/gm-video-agent-network.html">Открыть схему</a>
+        </section>
+        <section class="diagram-card">
+          <h2>Meta Ads Chat Architecture</h2>
+          <p>Как вопрос сотрудника проходит через Claude и Meta Ads Agent к свежим данным, и где возникает риск смешения со старой историей чата.</p>
+          <a class="button" href="./diagrams/gm-meta-ads-chat-architecture.html">Открыть схему</a>
+        </section>
       </div>
     </main>
   </body>

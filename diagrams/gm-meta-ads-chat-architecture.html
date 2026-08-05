@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Meta Ads Chat Architecture</title>
+    <style>
+      :root {
+        --paper: #f5f1e9;
+        --ink: #192329;
+        --muted: #667278;
+        --line: #c8d0cc;
+        --blue: #256d8d;
+        --blue-soft: #e5f1f5;
+        --green: #2d775f;
+        --green-soft: #e3f1e9;
+        --orange: #b96f26;
+        --orange-soft: #fbebd7;
+        --red: #b4493f;
+        --red-soft: #f8dfdc;
+        --gray: #596369;
+        --shadow: 0 12px 30px rgba(31, 40, 43, 0.09);
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-width: 1180px;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      .page {
+        width: 1680px;
+        margin: 0 auto;
+        padding: 56px 56px 68px;
+      }
+
+      header {
+        display: grid;
+        grid-template-columns: 1fr 410px;
+        gap: 64px;
+        align-items: end;
+        padding-bottom: 30px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .eyebrow {
+        margin: 0 0 12px;
+        color: var(--blue);
+        font-size: 13px;
+        font-weight: 750;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        max-width: 820px;
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 47px;
+        font-weight: 500;
+        line-height: 1.06;
+      }
+
+      .intro {
+        margin: 0;
+        color: var(--muted);
+        font-size: 17px;
+        line-height: 1.5;
+      }
+
+      .legend {
+        display: flex;
+        gap: 16px;
+        justify-content: flex-end;
+        color: var(--muted);
+        font-size: 13px;
+        white-space: nowrap;
+      }
+
+      .legend span { display: inline-flex; align-items: center; gap: 7px; }
+      .dot { width: 10px; height: 10px; border-radius: 50%; }
+      .dot.blue { background: var(--blue); }
+      .dot.green { background: var(--green); }
+      .dot.orange { background: var(--orange); }
+      .dot.red { background: var(--red); }
+
+      .diagram {
+        position: relative;
+        display: grid;
+        grid-template-columns: 310px 370px 330px 360px;
+        grid-template-rows: 104px 260px 250px 220px;
+        column-gap: 50px;
+        row-gap: 34px;
+        margin-top: 42px;
+        min-height: 970px;
+      }
+
+      .lane {
+        position: absolute;
+        top: -16px;
+        bottom: -20px;
+        width: 1px;
+        background: linear-gradient(var(--line) 50%, transparent 0) 0 0 / 1px 9px;
+        opacity: 0.85;
+      }
+      .lane.l1 { left: 335px; }
+      .lane.l2 { left: 756px; }
+      .lane.l3 { left: 1136px; }
+
+      .lane-label {
+        position: absolute;
+        top: -38px;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      .lane-label.a { left: 36px; }
+      .lane-label.b { left: 404px; }
+      .lane-label.c { left: 830px; }
+      .lane-label.d { left: 1212px; }
+
+      .node {
+        position: relative;
+        z-index: 2;
+        align-self: stretch;
+        padding: 20px 21px 18px;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: rgba(255, 255, 255, 0.7);
+        box-shadow: var(--shadow);
+      }
+
+      .node h2,
+      .node h3 { margin: 0; }
+
+      .tag {
+        display: inline-block;
+        margin-bottom: 12px;
+        padding: 4px 8px;
+        border: 1px solid currentColor;
+        border-radius: 4px;
+        color: var(--gray);
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .node h2 { font-size: 21px; line-height: 1.18; }
+      .node h3 { font-size: 17px; line-height: 1.22; }
+      .node p { margin: 10px 0 0; color: var(--muted); font-size: 15px; line-height: 1.42; }
+      .node ul { margin: 12px 0 0; padding: 0; list-style: none; color: var(--muted); font-size: 14px; line-height: 1.42; }
+      .node li { position: relative; padding-left: 13px; margin: 5px 0; }
+      .node li::before { content: ""; position: absolute; left: 0; top: 0.56em; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+
+      .person { grid-column: 1; grid-row: 1 / span 2; background: #fffdf8; }
+      .project { grid-column: 2; grid-row: 1; background: var(--blue-soft); border-color: #a8c5d0; }
+      .chat { grid-column: 2; grid-row: 2; background: #fffdf8; border-color: #c7c5bc; }
+      .gateway { grid-column: 3; grid-row: 2; background: var(--blue-soft); border-color: #a8c5d0; }
+      .access { grid-column: 3; grid-row: 3; background: var(--green-soft); border-color: #a9cdbc; }
+      .sources { grid-column: 4; grid-row: 2 / span 2; background: #fafcfb; }
+      .answer { grid-column: 2; grid-row: 3; background: var(--green-soft); border-color: #a9cdbc; }
+      .final { grid-column: 1 / span 2; grid-row: 4; background: #fffdf8; }
+      .failure { grid-column: 3 / span 2; grid-row: 4; background: var(--red-soft); border-color: #dba49e; }
+
+      .person h2 { font-family: Georgia, "Times New Roman", serif; font-size: 28px; font-weight: 500; }
+      .answer h3, .access h3 { color: var(--green); }
+      .access p { font-size: 14px; line-height: 1.38; }
+      .access ul { margin-top: 8px; font-size: 13px; line-height: 1.32; }
+      .access li { margin: 3px 0; }
+      .failure h2 { color: #8f342e; }
+      .failure p { color: #854c47; }
+
+      .callout {
+        margin-top: 14px;
+        padding: 10px 11px;
+        border-left: 3px solid var(--orange);
+        background: var(--orange-soft);
+        color: #80511f;
+        font-size: 13px;
+        line-height: 1.37;
+      }
+
+      .sources .source-group + .source-group { margin-top: 15px; padding-top: 14px; border-top: 1px solid var(--line); }
+      .source-group strong { display: block; color: var(--ink); font-size: 14px; }
+      .source-group p { margin-top: 5px; font-size: 13px; }
+
+      .wires {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        width: 1520px;
+        height: 970px;
+        overflow: visible;
+        pointer-events: none;
+      }
+      .wire { fill: none; stroke: var(--blue); stroke-width: 2; }
+      .wire.fresh { stroke: var(--green); }
+      .wire.history { stroke: var(--orange); stroke-dasharray: 7 7; }
+      .wire-label {
+        fill: var(--muted);
+        font-size: 12px;
+        font-weight: 700;
+        paint-order: stroke;
+        stroke: var(--paper);
+        stroke-width: 6px;
+        stroke-linejoin: round;
+      }
+
+      .read-guide {
+        display: grid;
+        grid-template-columns: 1.1fr 1fr 1fr;
+        gap: 36px;
+        padding-top: 32px;
+        border-top: 1px solid var(--line);
+      }
+      .read-guide h2 { margin: 0 0 9px; font-size: 16px; }
+      .read-guide p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.48; }
+
+      @media (max-width: 1200px) {
+        body { min-width: 0; }
+        .page { width: 100%; min-width: 1180px; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <header>
+        <div>
+          <p class="eyebrow">Meta Ads Chat Architecture · 5 августа 2026</p>
+          <h1>Архитектура чата Meta Ads<br><code>gm_meta-ads</code></h1>
+        </div>
+        <div>
+          <p class="intro">Схема показывает действующий путь ответа. Красным отмечено место, где свежие данные могут быть испорчены старой историей разговора.</p>
+          <div class="legend" aria-label="Легенда">
+            <span><i class="dot blue"></i>контекст и вызов</span>
+            <span><i class="dot green"></i>свежие факты</span>
+            <span><i class="dot orange"></i>история</span>
+            <span><i class="dot red"></i>дефект</span>
+          </div>
+        </div>
+      </header>
+
+      <section class="diagram" aria-label="Схема текущей работы чата gm_meta-ads">
+        <div class="lane l1"></div><div class="lane l2"></div><div class="lane l3"></div>
+        <div class="lane-label a">Человек</div>
+        <div class="lane-label b">Claude</div>
+        <div class="lane-label c">Рабочий инструмент</div>
+        <div class="lane-label d">Актуальные данные</div>
+
+        <svg class="wires" viewBox="0 0 1520 970" aria-hidden="true">
+          <defs>
+            <marker id="arrow-blue" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9" fill="none" stroke="#256d8d" stroke-width="1.7" /></marker>
+            <marker id="arrow-green" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9" fill="none" stroke="#2d775f" stroke-width="1.7" /></marker>
+            <marker id="arrow-orange" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9" fill="none" stroke="#b96f26" stroke-width="1.7" /></marker>
+          </defs>
+          <path class="wire" d="M310 196 C333 196 338 268 360 268" marker-end="url(#arrow-blue)" />
+          <text class="wire-label" x="315" y="218">вопрос</text>
+          <path class="wire" d="M730 268 H780" marker-end="url(#arrow-blue)" />
+          <text class="wire-label" x="735" y="251">вызов</text>
+          <path class="wire" d="M945 398 V432" marker-end="url(#arrow-blue)" />
+          <path class="wire" d="M1160 510 C1128 510 1114 557 1110 557" marker-end="url(#arrow-blue)" />
+          <path class="wire fresh" d="M780 557 H730" marker-end="url(#arrow-green)" />
+          <path class="wire fresh" d="M545 682 V716" marker-end="url(#arrow-green)" />
+          <text class="wire-label" x="560" y="705">итог</text>
+          <path class="wire history" d="M730 398 C808 462 733 663 780 820" marker-end="url(#arrow-orange)" />
+          <text class="wire-label" x="703" y="584">старая история</text>
+        </svg>
+
+        <article class="node person">
+          <span class="tag">Рабочая поверхность</span>
+          <h2>Света или другой сотрудник</h2>
+          <p>Пишет обычный вопрос: «Что сейчас происходит с рекламой?»</p>
+          <div class="callout">Человеку не нужно знать, где лежат таблицы, как называется workflow или какие были внутренние этапы.</div>
+        </article>
+
+        <article class="node project">
+          <span class="tag">Claude Project GetsMine AI CMO</span>
+          <h3>Постоянный бизнес-контекст</h3>
+          <p>Продукт, офферы, принципы работы и знания, которые команда добавляет в Project.</p>
+        </article>
+
+        <article class="node chat">
+          <span class="tag">Claude Chat</span>
+          <h2>Существующий чат <code>gm_meta-ads</code></h2>
+          <p>Здесь находится сам разговор. Сейчас в нём 306 сообщений: старые тесты, предыдущие ответы, исправления и неудачные формулировки.</p>
+          <div class="callout">История этого конкретного разговора тоже остаётся контекстом для Claude.</div>
+        </article>
+
+        <article class="node gateway">
+          <span class="tag">Подключённый инструмент Claude</span>
+          <h3>Use GetsMine Meta Ads Agent</h3>
+          <p>По актуальным вопросам он должен запросить свежие сведения, а не отвечать из старого разговора.</p>
+          <ul>
+            <li>один вход в рабочую систему</li>
+            <li>сам ничего в рекламе не меняет</li>
+          </ul>
+        </article>
+
+        <article class="node access">
+          <span class="tag">n8n: GM Meta Ads - Chat Access v0.1</span>
+          <h3>Собирает ответ из свежих источников</h3>
+          <p>Определяет, что нужно проверить, читает данные, сопоставляет их и возвращает готовый текст с фактами и ограничениями.</p>
+          <ul>
+            <li>48 рабочих шагов в текущем составе</li>
+            <li>только чтение: без изменения рекламы, CRM и таблиц</li>
+          </ul>
+        </article>
+
+        <article class="node sources">
+          <span class="tag">Источники, которые система читает</span>
+          <div class="source-group"><strong>Meta Ads</strong><p>Текущие показатели, дни, кампании, группы объявлений, объявления, статусы.</p></div>
+          <div class="source-group"><strong>Креативы и путь пользователя</strong><p>Тексты, превью, ролики, посадочные страницы и путь после клика.</p></div>
+          <div class="source-group"><strong>CRM</strong><p>Качество заявок, этапы, источник, кампания, UTM и путь заявки.</p></div>
+          <div class="source-group"><strong>Рабочая история</strong><p>Принятые решения и сохранённый анализ, когда он совпадает с текущими объектами.</p></div>
+        </article>
+
+        <article class="node answer">
+          <span class="tag">Ответ инструмента</span>
+          <h3>Свежая фактическая основа</h3>
+          <p>Например: текущий расход, лиды, отклонённое объявление, качество заявок, что именно можно и нельзя утверждать.</p>
+        </article>
+
+        <article class="node final">
+          <span class="tag">То, что видит человек</span>
+          <h2>Claude пишет итоговый ответ в чате</h2>
+          <p>После вызова инструмента Claude сам формулирует сообщение. В удачном случае он берёт свежую фактическую основу и объясняет её нормальным человеческим языком.</p>
+        </article>
+
+        <article class="node failure">
+          <span class="tag">Текущее слабое место</span>
+          <h2>Старый разговор может вмешаться в свежий ответ</h2>
+          <p>Инструмент уже вернул правильные данные, но Claude дополнительно использует 306 старых сообщений и может добавить устаревшую фразу или лишнее действие. Именно это произошло в широком вопросе «я новый человек, что сейчас по Meta Ads?».</p>
+          <div class="callout" style="border-color: var(--red); background: rgba(255,255,255,.55); color:#854c47;">Проблема находится не в чтении Meta и CRM. Она возникает после получения свежего ответа, в последней формулировке Claude.</div>
+        </article>
+
+      </section>
+
+      <section class="read-guide">
+        <div><h2>1. Что работает</h2><p>Слой получения актуальных фактов уже собран. Он самостоятельно читает Meta, CRM, креативы и связанные маршруты, не меняя рабочие системы.</p></div>
+        <div><h2>2. Почему ответ может быть плохим</h2><p>Конечную фразу формирует Claude, а не сама рабочая система. Поэтому он способен добавить к свежим данным старую мысль из длинной истории чата.</p></div>
+        <div><h2>3. Что показывает схема</h2><p>Это не новая архитектура и не план исправления. Это честная карта нынешней работы, чтобы обсуждать изменения от фактической точки сбоя.</p></div>
+      </section>
+    </main>
+  </body>
+</html>
