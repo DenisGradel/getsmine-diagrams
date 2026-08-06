@@ -20,6 +20,10 @@ export default defineConfig({
           import.meta.dirname,
           "app/diagrams/gm-data-map.html",
         ),
+        smmContentFlow: resolve(
+          import.meta.dirname,
+          "app/diagrams/gm-smm-content-flow.html",
+        ),
       },
     },
   },
