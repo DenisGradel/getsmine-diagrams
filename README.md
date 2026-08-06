@@ -1,8 +1,11 @@
 # GetsMine Diagrams
 
-Public static HTML pages for sharing working diagrams with the team.
+Публичные рабочие карты GetsMine. Исходные данные и интерфейс интерактивных карт хранятся отдельно; GitHub Pages отдаёт собранные страницы по постоянным ссылкам.
 
-Current pages:
+Pages:
 
 - `diagrams/gm-video-agent-network.html` — GM Video Production Agent Network.
+- `diagrams/gm-meta-ads-chat-architecture.html` — интерактивная карта архитектуры чата Meta Ads.
 - `diagrams/gm-data-map.html` — интерактивная карта данных GetsMine.
+
+Локальная проверка и сборка: `npm install`, затем `npm run build`.
