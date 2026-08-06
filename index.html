@@ -76,6 +76,20 @@
         font-weight: 650;
       }
 
+      .diagram {
+        margin-bottom: 30px;
+      }
+
+      .diagram h2 {
+        margin: 0;
+        font-size: 18px;
+      }
+
+      .diagram p {
+        margin: 5px 0 0;
+        font-size: 14px;
+      }
+
       .frame {
         width: 100%;
         height: min(78vh, 980px);
@@ -112,16 +126,34 @@
   <body>
     <header>
       <h1>GetsMine Diagrams</h1>
-      <p>Рабочие HTML-схемы по агентам, видео и операционным процессам. Первая схема показывает, как связаны Света, Claude Chat, GM Video Production Agent, HeyGen, Runway, агент платного трафика и источники контекста.</p>
+      <p>Рабочие интерактивные схемы GetsMine: карта управленческих данных и схема видеоагента.</p>
     </header>
     <main>
-      <div class="toolbar">
-        <a class="button" href="./diagrams/gm-video-agent-network.html">Открыть схему отдельно</a>
-        <span>GM Video Production Agent Network</span>
-      </div>
-      <div class="frame">
-        <iframe title="GM Video Production Agent Network" src="./diagrams/gm-video-agent-network.html"></iframe>
-      </div>
+      <section class="diagram">
+        <div class="toolbar">
+          <a class="button" href="./diagrams/gm-data-map.html">Открыть карту отдельно</a>
+          <div>
+            <h2>Карта данных GetsMine</h2>
+            <p>Источники, обработка, внутренние таблицы, управленческие отчёты и расписания обновлений.</p>
+          </div>
+        </div>
+        <div class="frame">
+          <iframe title="Карта данных GetsMine" src="./diagrams/gm-data-map.html"></iframe>
+        </div>
+      </section>
+
+      <section class="diagram">
+        <div class="toolbar">
+          <a class="button" href="./diagrams/gm-video-agent-network.html">Открыть схему отдельно</a>
+          <div>
+            <h2>Сеть видеоагента GetsMine</h2>
+            <p>Связи между постановкой задачи, контекстом, производством видео и рекламным контуром.</p>
+          </div>
+        </div>
+        <div class="frame">
+          <iframe title="GM Video Production Agent Network" src="./diagrams/gm-video-agent-network.html"></iframe>
+        </div>
+      </section>
     </main>
   </body>
 </html>
