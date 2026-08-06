@@ -6,5 +6,6 @@ Pages:
 
 - `diagrams/gm-video-agent-network.html` — GM Video Production Agent Network.
 - `diagrams/gm-meta-ads-chat-architecture.html` — интерактивная карта архитектуры чата Meta Ads.
+- `diagrams/gm-data-map.html` — интерактивная карта данных GetsMine.
 
 Локальная проверка и сборка: `npm install`, затем `npm run build`.

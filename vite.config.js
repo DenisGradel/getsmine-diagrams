@@ -16,6 +16,10 @@ export default defineConfig({
           import.meta.dirname,
           "app/diagrams/gm-meta-ads-chat-architecture.html",
         ),
+        dataMap: resolve(
+          import.meta.dirname,
+          "app/diagrams/gm-data-map.html",
+        ),
       },
     },
   },
