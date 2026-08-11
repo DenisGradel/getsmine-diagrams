@@ -5,7 +5,6 @@
 Pages:
 
 - `diagrams/gm-video-agent-network.html` — GM Video Production Agent Network.
-- `diagrams/kashback-architecture.html` — интерактивная страница Kashback: stage, выпуск, backup/restore и граница перед публичным запуском.
 - `diagrams/gm-meta-ads-chat-architecture.html` — интерактивная карта архитектуры чата Meta Ads.
 - `diagrams/gm-data-map.html` — интерактивная карта данных GetsMine.
 - `diagrams/gm-smm-content-flow.html` — действующий SMM-путь от источников до карточки видеозадачи.
