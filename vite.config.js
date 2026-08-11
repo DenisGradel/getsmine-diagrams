@@ -24,6 +24,10 @@ export default defineConfig({
           import.meta.dirname,
           "app/diagrams/gm-smm-content-flow.html",
         ),
+        kashbackArchitecture: resolve(
+          import.meta.dirname,
+          "app/diagrams/kashback-architecture.html",
+        ),
       },
     },
   },
