@@ -10,7 +10,7 @@ export const nodes = [
     y: 360,
     color: "person",
     eyebrow: "Рабочая поверхность",
-    title: "Света или другой сотрудник",
+    title: "Сотрудник",
     summary: "Задаёт обычный вопрос о рекламе и заявках.",
     details: {
       where: "Claude Project GetsMine AI CMO, чат gm_meta-ads",

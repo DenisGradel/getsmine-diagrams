@@ -16,7 +16,7 @@ import { edges as edgeSpecs, nodes as nodeSpecs } from "./meta-chat-data";
 import "./meta-chat-map.css";
 
 function ArchitectureNode({ data, selected }) {
-  const { item } = data;
+  const { item, onOpen } = data;
 
   return (
     <article className={`architecture-node ${item.color} ${selected ? "selected" : ""}`}>
@@ -29,7 +29,16 @@ function ArchitectureNode({ data, selected }) {
       <p className="node-eyebrow">{item.eyebrow}</p>
       <h2>{item.title}</h2>
       <p className="node-summary">{item.summary}</p>
-      <span className="node-action">Открыть описание</span>
+      <button
+        type="button"
+        className="node-action nodrag nopan"
+        onClick={(event) => {
+          event.stopPropagation();
+          onOpen(item.id);
+        }}
+      >
+        Открыть описание
+      </button>
       <Handle id="right-upper" type="source" position={Position.Right} className="node-handle auxiliary" style={{ top: "32%" }} />
       <Handle id="right-center" type="source" position={Position.Right} className="node-handle" style={{ top: "50%" }} />
       <Handle id="right-lower" type="source" position={Position.Right} className="node-handle auxiliary" style={{ top: "68%" }} />
@@ -109,15 +118,15 @@ function Detail({ item, onClose }) {
 }
 
 function App() {
-  const [selectedId, setSelectedId] = useState("chat");
-  const selected = nodeSpecs.find((item) => item.id === selectedId) ?? nodeSpecs[0];
+  const [selectedId, setSelectedId] = useState(null);
+  const selected = selectedId ? nodeSpecs.find((item) => item.id === selectedId) : null;
 
   const nodes = useMemo(
     () => nodeSpecs.map((item) => ({
       id: item.id,
       type: "architecture",
       position: { x: item.x, y: item.y },
-      data: { item },
+      data: { item, onOpen: setSelectedId },
       draggable: false,
       selectable: true,
       width: 270,
@@ -174,7 +183,7 @@ function App() {
             <Controls showInteractive={false} />
           </ReactFlow>
         </div>
-        <Detail item={selected} onClose={() => setSelectedId("chat")} />
+        {selected ? <Detail item={selected} onClose={() => setSelectedId(null)} /> : null}
       </section>
 
       <section className="reading-note">
