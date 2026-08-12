@@ -13,7 +13,7 @@ export const nodes = [
     title: "Сотрудник",
     summary: "Задаёт обычный вопрос о рекламе и заявках.",
     details: {
-      where: "Claude Project GetsMine AI CMO, чат gm_meta-ads",
+      where: "Claude: проект GetsMine AI CMO, рабочий чат gm_meta-ads.",
       role: "Начинает разговор без названий инструментов, процессов и внутренних пунктов.",
       receives: "Понятный ответ по свежим фактам Meta и GetsMine.",
       boundary: "Не должен знать, где лежат данные и каким способом Claude их прочитал.",
@@ -28,7 +28,7 @@ export const nodes = [
     title: "Постоянный бизнес-контекст",
     summary: "Продукт, офферы, язык и рабочие правила команды.",
     details: {
-      where: "Проект Claude GetsMine AI CMO",
+      where: "Claude: проект GetsMine AI CMO.",
       role: "Даёт чату контекст продукта и правила работы, которые команда поддерживает в одном проекте.",
       receives: "Офферы, позиционирование, ограничения, примеры и материалы команды.",
       returns: "Контекст для осмысленного разговора, но не текущие рекламные показатели.",
@@ -44,7 +44,7 @@ export const nodes = [
     title: "Рабочий чат gm_meta-ads",
     summary: "Единственный аналитик и собеседник сотрудника.",
     details: {
-      where: "Claude Project GetsMine AI CMO, чат gm_meta-ads",
+      where: "Claude: проект GetsMine AI CMO, рабочий чат gm_meta-ads.",
       role: "Понимает вопрос, выбирает минимально достаточные чтения и формулирует один человеческий ответ.",
       receives: "Вопрос сотрудника, бизнес-контекст проекта и историю текущего разговора.",
       returns: "Свежие факты, объяснение их смысла и явно обозначенные ограничения вывода.",
@@ -62,7 +62,7 @@ export const nodes = [
     title: "GetsMine Meta Ads Official MCP",
     summary: "Читает рекламный кабинет Meta напрямую.",
     details: {
-      where: "Claude connector, endpoint https://mcp.facebook.com/ads",
+      where: "Claude: подключение GetsMine Meta Ads Official MCP.\nMeta: официальный адрес mcp.facebook.com/ads.",
       role: "Возвращает показатели, настройки, кампании, группы, объявления, креативы и превью из рабочего кабинета GetsMine.",
       receives: "Точный период, уровень объекта и нужный рекламный разрез от Claude.",
       returns: "Свежие данные аккаунта 772776104188925 и доступные объекты Meta.",
@@ -80,7 +80,7 @@ export const nodes = [
     title: "GetsMine Meta Read Tools",
     summary: "Шесть узких чтений данных GetsMine.",
     details: {
-      where: "Claude connector через personal n8n gateway fhHp08zs3fTYpdXl",
+      where: "Claude: подключение GetsMine Meta Read Tools.\nn8n (личный): gateway GM Meta Read Tools - Claude MCP Gateway v0.1 Test, workflow fhHp08zs3fTYpdXl.",
       role: "Даёт Claude недостающие бизнес-факты, которых нет в рекламном кабинете Meta.",
       receives: "Только параметры конкретного чтения: период, deal id, URL или поисковый вопрос по истории.",
       returns: "Новые сделки Pipedrive, зрелое CRM-качество, путь заявки, рекламный адрес, post-click и принятую историю.",
@@ -98,7 +98,7 @@ export const nodes = [
     title: "Meta Ads",
     summary: "Показатели, настройки, объявления и креативы.",
     details: {
-      where: "Аккаунт Active - ISR - GetsMine Israel 2, 772776104188925",
+      where: "Meta Ads: рекламный аккаунт Active - ISR - GetsMine Israel 2, ID 772776104188925.",
       role: "Даёт текущие рекламные факты за названный период и на нужном уровне объектов.",
       returns: "Расход, показы, клики, CTR, CPC, CPM, Meta-лиды, статусы, бюджеты, таргетинг, placements, тексты, ссылки, ids и preview.",
       boundary: "Meta-лид не равен доказанной сделке Pipedrive; отсутствие строки не превращается в доказанный ноль.",
@@ -113,7 +113,7 @@ export const nodes = [
     title: "Живой Pipedrive",
     summary: "Новые и недавние сделки отдела продаж.",
     details: {
-      where: "Рабочий Pipedrive GetsMine через gm_meta_recent_leads_read",
+      where: "Pipedrive: рабочий аккаунт GetsMine, getsmine2.pipedrive.com.\nn8n (личный): чтение GM Meta Read - Recent Leads v0.1.",
       role: "Показывает обращения сразу после появления у sales, не дожидаясь подготовленной CRM-таблицы.",
       returns: "Количество сделок, новые и повторные обращения, стадии и доступные рекламные метки.",
       boundary: "Текстовая UTM-метка не доказывает точную связь сделки с конкретным ad_id или creative_id.",
@@ -128,7 +128,7 @@ export const nodes = [
     title: "CRM-качество и путь заявки",
     summary: "Зрелость, стадии и доказательность происхождения.",
     details: {
-      where: "crm_meta_quality_output_v0_1, Pipedrive и Lead Attribution Trace",
+      where: "Pipedrive: сделки, стадии и история выбранной сделки.\nn8n (личный): таблицы crm_meta_quality_output_v0_1 и crm_publication_state с принятым CRM-качеством.\nn8n (корпоративный): таблица Lead Attribution Trace со следами пути заявки.",
       role: "Отделяет оперативный список новых сделок от зрелого качества и разбора конкретной заявки.",
       returns: "Стадии, движение, новую или повторную заявку, маршрут и уровень доказательности атрибуции.",
       boundary: "Не раскрывает личные данные и не придумывает точный рекламный объект без platform ids.",
@@ -143,7 +143,7 @@ export const nodes = [
     title: "Post-click и принятая история",
     summary: "Публичный путь после клика и прошлые решения.",
     details: {
-      where: "Публичные URL GetsMine и versioned history index",
+      where: "Сайт GetsMine: публичные лендинги, редиректы, формы, thank-you и WhatsApp-ссылки.\nРепозиторий ai-workflow: история решений в projects/gm/docs/meta-ads.md и указатель projects/gm/docs/meta-ads-history-index.json.\nn8n (личный): отдельные чтения Post Click и History.",
       role: "Проверяет рекламный адрес, редиректы, лендинг, форму и thank-you; отдельно находит принятую историю решения.",
       returns: "Фактический публичный маршрут либо датированную принятую историю по конкретному вопросу.",
       boundary: "Публичная проверка не отправляет форму; история не заменяет свежие данные и не переопределяет позднейшие решения.",
@@ -158,7 +158,7 @@ export const nodes = [
     title: "Понятное объяснение сотруднику",
     summary: "Факты, их смысл и честная граница вывода.",
     details: {
-      where: "Рабочий чат gm_meta-ads",
+      where: "Claude: проект GetsMine AI CMO, рабочий чат gm_meta-ads.",
       role: "Собирает один ответ из нужных источников без второго скрытого аналитика внутри n8n.",
       receives: "Свежие Meta- и GetsMine-факты, бизнес-контекст и вопрос человека.",
       returns: "Краткий обзор или подробный разбор в зависимости от вопроса.",
@@ -174,7 +174,7 @@ export const nodes = [
     title: "Решение проверяет человек",
     summary: "Аналитик помогает, но не управляет рекламой автономно.",
     details: {
-      where: "Рабочее решение Дениса или назначенного владельца paid traffic",
+      where: "Вне технических систем: решение Дениса или назначенного владельца платной рекламы.",
       role: "Проверяет причинный вывод и принимает конкретное рекламное действие.",
       receives: "Рекомендацию Claude, свежие факты и ограничения доказательности.",
       returns: "Прямую команду на изменение либо решение ничего не менять.",
@@ -190,7 +190,7 @@ export const nodes = [
     title: "Старый универсальный Chat Access",
     summary: "Не участвует в новом обычном разговоре.",
     details: {
-      where: "Чат gm_meta-ads — откат до 12.08.2026 и GM Meta Ads - Chat Access v0.1",
+      where: "Claude: чат gm_meta-ads — откат до 12.08.2026 и подключение Use GetsMine Meta Ads Agent.\nn8n (личный): workflow GM Meta Ads - Chat Access v0.1.",
       role: "Сохраняет прежнюю поверхность для точного возврата, если новая версия столкнётся с критическим дефектом.",
       receives: "Только отдельное осознанное решение использовать откат.",
       returns: "Старый путь через Use GetsMine Meta Ads Agent.",
@@ -208,7 +208,7 @@ export const nodes = [
     title: "SMM и Video Production",
     summary: "Органический смысл и производство видео живут отдельно.",
     details: {
-      where: "13_gm_smm и 13_gm_video-prod",
+      where: "Codex: отдельные задачи владельцев 13_gm_smm и 13_gm_video-prod.",
       role: "SMM выбирает органические темы и содержание; Video Production производит, хранит и версионирует видео.",
       receives: "От Meta только отдельное рекламное задание, когда оно действительно нужно.",
       returns: "Готовый материал владельцу paid traffic для принятия и измерения.",

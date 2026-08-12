@@ -256,7 +256,7 @@ h1, h2, p { margin: 0; }
 .inspector dl { margin: 28px 0 0; }
 .inspector dl div + div { margin-top: 21px; }
 .inspector dt { color: #45687f; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .045em; }
-.inspector dd { margin: 7px 0 0; color: #38484f; font-size: 14px; line-height: 1.45; }
+.inspector dd { margin: 7px 0 0; color: #38484f; font-size: 14px; line-height: 1.45; white-space: pre-line; }
 
 .open-link {
   display: inline-flex;
