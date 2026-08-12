@@ -129,6 +129,9 @@ h1, h2, p { margin: 0; }
 .architecture-node.source { background: #f1f3f1; border-color: #abb8b2; }
 .architecture-node.facts, .architecture-node.answer { background: #eaf4ec; border-color: #89b898; }
 .architecture-node.risk { background: #fae7e3; border-color: #c98076; }
+.architecture-node.boundary { background: #fff1da; border-color: #c8964d; }
+.architecture-node.legacy { background: #f0eeee; border-color: #aaa1a1; }
+.architecture-node.owner { background: #f4edf6; border-color: #ab8db5; }
 
 .node-eyebrow {
   overflow-wrap: anywhere;
