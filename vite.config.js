@@ -24,6 +24,10 @@ export default defineConfig({
           import.meta.dirname,
           "app/diagrams/gm-smm-content-flow.html",
         ),
+        trackingAnalytics: resolve(
+          import.meta.dirname,
+          "app/diagrams/gm-tracking-analytics.html",
+        ),
       },
     },
   },

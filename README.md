@@ -4,6 +4,7 @@
 
 Pages:
 
+- `diagrams/gm-tracking-analytics.html` — интерактивная архитектура tracking, GA4/GTM, атрибуции, CRM и сквозной отчётности GetsMine.
 - `diagrams/gm-video-agent-network.html` — GM Video Production Agent Network.
 - `diagrams/gm-meta-ads-chat-architecture.html` — интерактивная карта архитектуры чата Meta Ads.
 - `diagrams/gm-data-map.html` — интерактивная карта данных GetsMine.
